@@ -255,7 +255,6 @@ class User(ndb.Model):
         """
             Creates a new user.
         """
-        # logging.critical(designation)
         user = cls()
         user.salutation = salutation
         user.first_name = first_name
@@ -289,19 +288,20 @@ class User(ndb.Model):
 
         user.put()
 
-        # if send:
-        #     content = {
-        #         "token": user.confirmation_token,
-        #         "uid": str(user.key.id())
-        #     }
-            # send_email(
-            #     receiver_name=user.first_name,
-            #     receiver_email=user.current_email,
-            #     subject="Email Verfication",
-            #     content=content,
-            #     email_type="verify")
+        if send:
+            content = {
+                "token": user.confirmation_token,
+                "uid": str(user.key.id())
+            }
 
-        # return user
+            send_email(
+                receiver_name=user.first_name,
+                receiver_email=user.current_email,
+                subject="Email Verfication",
+                content=content,
+                email_type="verify")
+
+        return user
 
     @classmethod
     @ndb.transactional(xg=True)

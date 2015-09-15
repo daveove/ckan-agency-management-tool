@@ -1,44 +1,5 @@
-@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300italic,400italic,700italic,400,300,700);
-@font-face {
-  font-family: 'Helvetica';
-  src: url("../fonts/HelveticaNeue.otf");
-  /* IE9 Compat Modes */
-  font-style: normal;
-  font-weight: 400;
-}
-@font-face {
-  font-family: 'Helvetica-Thin';
-  src: url("../fonts/HelveticaNeue-Thin.otf");
-/* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Helvetica-Bold';
-  src: url("../fonts/HelveticaNeue-Bold.otf");
-  /* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Helvetica-Medium';
-  src: url("../fonts/HelveticaNeue-Medium.otf");
-  /* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Helvetica-UltraLight';
-  src: url("../fonts/HelveticaNeue-UltraLight.otf");
-  /* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Helvetica-CondensedBlack';
-  src: url("../fonts/HelveticaNeue-CondensedBlack.otf");
-  /* IE9 Compat Modes */
-}
-@font-face {
-  font-family: 'Helvetica-CondensedBold';
-  src: url("../fonts/HelveticaNeue-CondensedBold.otf");
-  /* IE9 Compat Modes */
-}
-
 body {
-    font-family: "Helvetica";
+    font-family: "Roboto";
     font-size: 13px;
 }
 
@@ -47,7 +8,7 @@ textarea {
 }
 
 h1, h2, h3 {
-    font-family: "Roboto Condensed";
+    font-family: "Roboto";
 }
 
 a:not([href]) {
@@ -94,7 +55,7 @@ a:not([href]) {
 .breadcrumb > li > a {
     color: #444;
     font-size: 20px;
-    font-family: "Roboto Condensed";
+    font-family: "Roboto";
     text-transform: uppercase;
 }
 
@@ -274,7 +235,7 @@ p.dashboard-agency {
       color: #000;
     margin: 0 10px 0 0;
     line-height: 27px;
-    font: 20px "Roboto Condensed";
+    font: 20px "Roboto";
     word-wrap: break-word;
     text-transform: uppercase;
 }
@@ -301,7 +262,7 @@ p.dashboard-agency {
 .dataset-item-content > p.dataset-author > span,
 .dataset-item-content > p.dataset-submitted > span {
     font-weight: 600;
-    font-family: "Roboto Condensed";
+    font-family: "Roboto";
     text-transform: uppercase;
 }
 
@@ -322,14 +283,14 @@ p.dashboard-agency {
 .feedbacks-item-keys p {
     margin: 0 10px 0 0;
     line-height: 27px;
-    font: 18px "Roboto Condensed";
+    font: 18px "Roboto";
     word-wrap: break-word;
 }
 
 /*.feedbacks-item-content > p {
     margin: 0 10px 0 0;
     line-height: 27px;
-    font: 18px "Roboto Condensed";
+    font: 18px "Roboto";
     text-align: left;
 }*/
 
@@ -351,7 +312,7 @@ p.feedbacks-item-content-author {
 
 p.feedbacks-item-content-author > span {
     font-weight: 600;
-    font-family: "Roboto Condensed";
+    font-family: "Roboto";
     text-transform: uppercase;
 }
 
@@ -359,7 +320,7 @@ p.feedbacks-item-content-label {
     margin: 0 10px 0 0;
     float: left;
     line-height: 27px;
-    font: 18px "Roboto Condensed";
+    font: 18px "Roboto";
 }
 div.feedbacks-item-button {
     margin-top: 5px
@@ -540,7 +501,7 @@ footer section.first {
 footer section h5.title {
   color: #111;
   font-weight: 400;
-  font-family: "Roboto Condensed";
+  font-family: "Roboto";
   text-transform: uppercase;
 }
 footer section p {

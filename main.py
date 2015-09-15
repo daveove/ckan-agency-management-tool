@@ -25,8 +25,6 @@ from google.appengine.api import images, urlfetch
 from google.appengine.ext import blobstore
 from google.appengine.datastore.datastore_query import Cursor
 
-from functions import hp
-
 this_thread = threading.local()
 jinja_environment = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)), autoescape=True)
@@ -443,7 +441,7 @@ class RegisterHandler(BaseHandler):
 
 
 class AgencyAdminRegistrationHandler(BaseHandler):
-    # @allowed_users(["OPENDATAADMIN"])
+    @allowed_users(["OPENDATAADMIN"])
     def get(self):
         """
             Handles the /admin/register endpoint.
@@ -530,27 +528,81 @@ class AdminRegisterHandler(BaseHandler):
             self.render("frontend/register-admin.html")
 
     def post(self):
-        if self.POST("salutation") and self.POST("first_name") and self.POST("last_name") and self.POST("email") and self.POST("email") and self.POST("department") and self.POST("agency") and self.POST("region") and self.POST("operating_unit") and self.POST("designation"):
-            logging.critical(hp(self.POST("email"), self.POST("password")))
-            
+        if self.POST("salutation") and self.POST("first_name") \
+           and self.POST("last_name") and self.POST("email") \
+           and self.POST("email") and self.POST("department") \
+           and self.POST("agency") and self.POST("region") \
+           and self.POST("operating_unit") and self.POST("designation"):
+            # user_exist = User.check_user(email=self.POST("email"))
+            # if user_exist:
+            #     if user_exist.role == "OPENDATAADMIN" \
+            #        and user_exist.status == "INVITE":
+            #         user = User.complete_opendata_admin_registration(
+            #             user=user_exist.key,
+            #             first_name=self.POST("first_name"),
+            #             last_name=self.POST("last_name"),
+            #             password=self.POST("password"),
+            #             mobile=self.POST("mobile_number"))
 
+            #         success = "Thank you for your registration. "
+            #         success += "You can now login."
+            #         success_message(self, success)
+            #         self.redirect("/login")
+            #         return
+            #     else:
+            #         message = "Sorry, it looks like "
+            #         message += self.POST("email")
+            #         message += " belongs to an existing account."
+            #         error_message(self, message)
+            # else:
             user = User.create_new_user(
-                salutation=str(self.POST("salutation")),  # REQUIRED
-                first_name=str(self.POST("first_name")),  # REQUIRED
-                last_name=str(self.POST("last_name")),  # REQUIRED
-                password=str(self.POST("password")),  # REQUIRED
-                email=str(self.POST("email")),  # REQUIRED
+                salutation=self.POST("salutation"),  # REQUIRED
+                first_name=self.POST("first_name"),  # REQUIRED
+                last_name=self.POST("last_name"),  # REQUIRED
+                password=self.POST("password"),  # REQUIRED
+                email=self.POST("email"),  # REQUIRED
                 department=self.POST("department"),
-                agency=str(self.POST("agency")),
-                region=str(self.POST("region")),
+                agency=self.POST("agency"),
+                region=self.POST("region"),
                 operating_unit=self.POST("operating_unit").split("->")[0],
                 uacs=self.POST("operating_unit").split("->")[1],
                 role="AGENCYADMIN",
-                middle_name=str(self.POST("middle_name")),
-                mobile=str(self.POST("mobile_number")),
-                designation=str(self.POST("designation")))
-            logging.critical(user)
-            
+                middle_name=self.POST("middle_name"),
+                mobile=self.POST("mobile_number"),
+                designation=self.POST("designation"))
+
+            success = "Thank you for your registration. "
+            success += "We sent you a verification email, "
+            success += "please open the email and verify your account "
+            success += "to complete the registration."
+            success_message(self, success)
+        elif self.POST("f_name") and self.POST("l_name") and self.POST("password") and self.POST("token") and self.POST("uid"):
+            user = User.get_by_id(int(self.POST("uid")))
+            if user:
+                password = hp(user.original_email, self.POST("password"))
+                user.first_name = self.POST("f_name").strip()
+                user.last_name = self.POST("l_name").strip()
+                user.name = " ".join([user.first_name, user.last_name])
+                user.mobile_number = self.POST("mobile_number")
+                user.previous_passwords.append(password)
+                user.password = password
+                user.status = "VERIFIED"
+                user.put()
+
+                session = SessionHandler(user)
+                session.login()
+
+                success = "Your account has been saved."
+                success_message(self, success)
+                self.redirect("/dashboard")
+                return
+            else:
+                error = "Sorry, we could not process your request."
+                error_message(self, error)
+        else:
+            error = "Please fill all required fields."
+            success_message(self, error)
+
         self.redirect("/admin/register")
 
 
@@ -805,7 +857,7 @@ class DashboardHandler(BaseHandler):
 
 
 class FeedbacksHandler(BaseHandler):
-    # @allowed_users(["AGENCYADMIN"])
+    @allowed_users(["AGENCYADMIN"])
     def get(self):
         self.tv["show_breadcrumb"] = False
         self.tv["show_add_dataset"] = False
@@ -2030,7 +2082,13 @@ class DatasetStatusHandler(BaseHandler):
                     return
 
                 if not content["success"]:
-                    # if content["error"]["name"] == "That URL is already in use."
+                    if "That URL is already in use." in content["error"]["name"]:
+                        error = "A dataset with name "
+                        error += dataset_ckan["name"]
+                        error += " already exists in the CKAN API. Please choose a different name "
+                        error += " or delete the existing dataset."
+                    else:
+                        error = "An error occured. The dataset was not published."
                     #     try:
                     #         if dataset.additional_data["CKAN_ID"]:
                     #             url = "http://api.data.gov.ph/catalogue/api/action/package_update"
@@ -2038,7 +2096,6 @@ class DatasetStatusHandler(BaseHandler):
                     #             url = "http://api.data.gov.ph/catalogue/api/action/package_create"
                     #     except Exception, e:
                     #         url = "http://api.data.gov.ph/catalogue/api/action/package_create"
-                    error = "An error occured. The dataset was not published."
                     error_message(self, error)
                     self.redirect("/dataset/" + str(dataset.key.id()))
                     return

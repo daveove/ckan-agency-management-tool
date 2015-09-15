@@ -37,24 +37,26 @@
                                         <div class="col-sm-8">
                                             <select class="form-control step1" name="indexed_dataset_category" id="dataset-category" required>`
                                                 <option value="">Select a Category</option>
-                                                <option value="Agriculture" {% if dataset.dataset_category == "Agriculture" %}selected{% endif %}>Agriculture</option>
-                                                <option value="Cultural" {% if dataset.dataset_category == "Cultural" %}selected{% endif %}>Cultural</option>
-                                                <option value="Earth Observation" {% if dataset.dataset_category == "Earth Observation" %}selected{% endif %}>Earth Observation</option>
-                                                <option value="Economy" {% if dataset.dataset_category == "Economy" %}selected{% endif %}>Economy</option>
-                                                <option value="Education" {% if dataset.dataset_category == "Education" %}selected{% endif %}>Education</option>
-                                                <option value="Education and Science" {% if dataset.dataset_category == "Education and Science" %}selected{% endif %}>Education and Science</option>
-                                                <option value="Environment" {% if dataset.dataset_category == "Environment" %}selected{% endif %}>Environment</option>
-                                                <option value="Employment" {% if dataset.dataset_category == "Employment" %}selected{% endif %}>Employment</option>
-                                                <option value="Geospatial" {% if dataset.dataset_category == "Geospatial" %}selected{% endif %}>Geospatial</option>
-                                                <option value="Health" {% if dataset.dataset_category == "Health" %}selected{% endif %}>Health</option>
-                                                <option value="Infrastructure" {% if dataset.dataset_category == "Infrastructure" %}selected{% endif %}>Infrastructure</option>
-                                                <option value="Law and Justice" {% if dataset.dataset_category == "Law and Justice" %}selected{% endif %}>Law and Justice</option>
-                                                <option value="Population" {% if dataset.dataset_category == "Population" %}selected{% endif %}>Population</option>
-                                                <option value="Public Administration" {% if dataset.dataset_category == "Public Administration" %}selected{% endif %}>Public Administration</option>
-                                                <option value="Public Finance" {% if dataset.dataset_category == "Public Finance" %}selected{% endif %}>Public Finance</option>
-                                                <option value="Social Welfare" {% if dataset.dataset_category == "Social Welfare" %}selected{% endif %}>Social Welfare</option>
-                                                <option value="Transport" {% if dataset.dataset_category == "Transport" %}selected{% endif %}>Transport</option>
-                                                <option value="Transport and Communication" {% if dataset.dataset_category == "Transport and Communication" %}selected{% endif %}>Transport and Communication</option>
+                                                <option value="Agriculture" {% if dataset and dataset.dataset_category == "Agriculture" %}selected{% endif %}>Agriculture</option>
+                                                <option value="Cultural" {% if dataset and dataset.dataset_category == "Cultural" %}selected{% endif %}>Cultural</option>
+                                                <option value="Earth Observation" {% if dataset and dataset.dataset_category == "Earth Observation" %}selected{% endif %}>Earth Observation</option>
+                                                <option value="Economy" {% if dataset and dataset.dataset_category == "Economy" %}selected{% endif %}>Economy</option>
+                                                <option value="Education" {% if dataset and dataset.dataset_category == "Education" %}selected{% endif %}>Education</option>
+                                                <option value="Energy" {% if dataset and dataset.dataset_category == "Energy" %}selected{% endif %}>Energy</option>
+                                                <option value="Environment" {% if dataset and dataset.dataset_category == "Environment" %}selected{% endif %}>Environment</option>
+                                                <option value="Employment" {% if dataset and dataset.dataset_category == "Employment" %}selected{% endif %}>Employment</option>
+                                                <option value="Geospatial" {% if dataset and dataset.dataset_category == "Geospatial" %}selected{% endif %}>Geospatial</option>
+                                                <option value="Health" {% if dataset and dataset.dataset_category == "Health" %}selected{% endif %}>Health</option>
+                                                <option value="Infrastructure" {% if dataset and dataset.dataset_category == "Infrastructure" %}selected{% endif %}>Infrastructure</option>
+                                                <option value="Law and Justice" {% if dataset and dataset.dataset_category == "Law and Justice" %}selected{% endif %}>Law and Justice</option>
+                                                <option value="Local Government" {% if dataset and dataset.dataset_category == "Local Government" %}selected{% endif %}>Local Government</option>
+                                                <option value="Politics" {% if dataset and dataset.dataset_category == "Politics" %}selected{% endif %}>Politics</option>
+                                                <option value="Population" {% if dataset and dataset.dataset_category == "Population" %}selected{% endif %}>Population</option>
+                                                <option value="Public Administration" {% if dataset and dataset.dataset_category == "Public Administration" %}selected{% endif %}>Public Administration</option>
+                                                <option value="Public Finance" {% if dataset and dataset.dataset_category == "Public Finance" %}selected{% endif %}>Public Finance</option>
+                                                <option value="Science and Research" {% if dataset and dataset.dataset_category == "Science and Research" %}selected{% endif %}>Science and Research</option>
+                                                <option value="Social Welfare" {% if dataset and dataset.dataset_category == "Social Welfare" %}selected{% endif %}>Social Welfare</option>
+                                                <option value="Transport and Communication" {% if dataset and dataset.dataset_category == "Transport and Communication" %}selected{% endif %}>Transport and Communication</option>
                                             </select>
                                         </div>
                                     </div>
@@ -77,20 +79,20 @@
                                                 <option value="cc-nc" {% if dataset.license_id == "cc-nc" %}selected{% endif %}>Creative Commons Non-Commercial (Any)</option>
                                                 <option value="gfdl" {% if dataset.license_id == "gfdl" %}selected{% endif %}>GNU Free Documentation License</option>
                                                 <option value="notspecified" {% if dataset.license_id == "notspecified" %}selected{% endif %}>License not specified</option>
-                                                <option value="odc-by" {% if dataset.license_id == "odc-by" %}selected{% endif %}>Manager Tool Commons Attribution License</option>
-                                                <option value="odc-odbl" {% if dataset.license_id == "odc-odbl" %}selected{% endif %}>Manager Tool Commons Manager License</option>
-                                                <option value="odc-pddl" {% if dataset.license_id == "odc-pddl" %}selected{% endif %}>Manager Tool Commons Public Domain Dedication and License</option>
+                                                <option value="odc-by" {% if dataset.license_id == "odc-by" %}selected{% endif %}>Open Data Commons Attribution License</option>
+                                                <option value="odc-odbl" {% if dataset.license_id == "odc-odbl" %}selected{% endif %}>Open Data Commons Open Database License (ODbL)</option>
+                                                <option value="odc-pddl" {% if dataset.license_id == "odc-pddl" %}selected{% endif %}>Open Data Commons Public Domain Dedication and License (PDDL)</option>
                                                 <option value="other-at" {% if dataset.license_id == "other-at" %}selected{% endif %}>Other (Attribution)</option>
                                                 <option value="other-nc" {% if dataset.license_id == "other-nc" %}selected{% endif %}>Other (Non-Commercial)</option>
                                                 <option value="other-closed" {% if dataset.license_id == "other-closed" %}selected{% endif %}>Other (Not Open)</option>
                                                 <option value="other-open" {% if dataset.license_id == "other-open" %}selected{% endif %}>Other (Open)</option>
                                                 <option value="other-pd" {% if dataset.license_id == "other-pd" %}selected{% endif %}>Other (Public Domain)</option>
-                                                <option value="uk-ogl" {% if dataset.license_id == "uk-ogl" %}selected{% endif %}>Open Government Licence (OGL)</option>
+                                                <option value="uk-ogl" {% if dataset.license_id == "uk-ogl" %}selected{% endif %}>UK Open Government Licence (OGL)</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label for="inputEmail3" class="col-sm-3 control-label">Manager Tool Initiative (ODI) Certificate</label>
+                                        <label for="inputEmail3" class="col-sm-3 control-label">Open Data Initiative (ODI) Certificate</label>
                                         <div class="col-sm-8">
                                             <input type="text" class="form-control" name="unindexed_odi_certificate" id="dataset-odi-certificate" value="{{ dataset.odi_certificate }}">
                                         </div>
