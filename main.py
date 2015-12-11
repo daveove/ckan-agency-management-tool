@@ -2062,10 +2062,10 @@ class DatasetStatusHandler(BaseHandler):
                     url = "http://api.data.gov.ph/catalogue/api/action/package_create"
 
 
-                dataset_ckan = json.dumps(dataset_ckan)
+                dataset_ckan_dumped = json.dumps(dataset_ckan)
 
-                logging.info(dataset_ckan)
-                dataset_ckan_string = urllib.quote(dataset_ckan)
+                logging.info(dataset_ckan_dumped)
+                dataset_ckan_string = urllib.quote(dataset_ckan_dumped)
                 headers = {"Authorization": CKAN_API_KEY}
                 content = urlfetch.fetch(
                     url=url,
